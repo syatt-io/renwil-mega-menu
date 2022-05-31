@@ -51,6 +51,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     menu: [],
     display: false,
     enableSty: false,
+    imageUrl: '',
+    actionLabel: '',
+    actionUrl: ''
   }
 
   const { navigate } = useRuntime()
@@ -72,6 +75,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
   const [levelInfo, setLevelInfo] = useState(Object)
   const [messageName, setMessageName] = useState('')
   const [messageSlug, setMessageSlug] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
+  const [actionLabel, setActionLabel] = useState('')
+  const [actionUrl, setActionUrl] = useState('')
 
   const responseForm = JSON.parse(decodeURIComponent(props.params.menu))
 
@@ -117,7 +123,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     subMenuData: DataMenu[],
     displayMenu: boolean,
     enableStyMenu: boolean,
-    orderMenu: number
+    orderMenu: number,
+    imageUrlMenu: string,
+    actionLabelMenu: string,
+    actionUrlMenu: string
   ) => {
     setIdMenu(idenMenu)
     setName(nameMenu)
@@ -130,6 +139,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     setDisplay(displayMenu)
     setEnableSty(enableStyMenu)
     setOrder(orderMenu)
+    setImageUrl(imageUrlMenu)
+    setActionLabel(actionLabelMenu)
+    setActionUrl(actionUrlMenu)
   }
 
   useEffect(() => {
@@ -155,7 +167,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           dataMenu.menu.menu,
           dataMenu.menu.display,
           dataMenu.menu.enableSty,
-          dataMenu.menu.order
+          dataMenu.menu.order,
+          dataMenu.menu.imageUrl,
+          dataMenu.menu.actionLabel,
+          dataMenu.menu.actionUrl
         )
       } else if (responseForm.level === 'secondLevel') {
         setLevelInfo({ firstLevel: dataMenu.menu.name })
@@ -186,7 +201,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           [],
           submenu[0].display,
           submenu[0].enableSty,
-          submenu[0].order
+          submenu[0].order,
+          submenu[0].imageUrl,
+          submenu[0].actionLabel,
+          submenu[0].actionUrl
         )
       } else {
         const tempArrayTL: DataMenu[] = []
@@ -233,7 +251,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           [],
           tempArrayTL[0].display,
           tempArrayTL[0].enableSty,
-          tempArrayTL[0].order ?? 0
+          tempArrayTL[0].order ?? 0,
+          tempArrayTL[0].imageUrl ?? '',
+          tempArrayTL[0].actionLabel ?? '',
+          tempArrayTL[0].actionUrl ?? ''
         )
 
         setLevelInfo({
@@ -269,7 +290,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         : '3'
 
     navigate({
-      to: `/admin/app/mega-menu/${tab}`,
+      to: `/admin/app/renwil-mega-menu/${tab}`,
     })
   }
 
@@ -364,6 +385,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           order: mainMenuLevel.order,
           slugRoot: mainMenuLevel.slugRoot,
           slugRelative: mainMenuLevel.slugRelative,
+          imageUrl: mainMenuLevel.imageUrl,
+          actionLabel: mainMenuLevel.actionLabel,
+          actionUrl: mainMenuLevel.actionUrl
         },
       },
     })
@@ -385,6 +409,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
             menu: subMenu,
             display,
             enableSty,
+            imageUrl,
+            actionLabel,
+            actionUrl
           },
         },
       })
@@ -566,7 +593,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       }
 
       insertSubMenu(
-        { id: idMenu, name, icon, slug, styles, display, enableSty, order },
+        { id: idMenu, name, icon, slug, styles, display, enableSty, order, imageUrl, actionLabel, actionUrl },
         menuLevelTwoUpdate
       )
 
@@ -692,6 +719,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     }
   }
 
+  console.log('responseForm.type', responseForm.type)
+  console.log('responseForm.level', responseForm.level)
+
   return (
     <div>
       {alert ? (
@@ -739,7 +769,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           responseForm.level === 'secondLevel') ? (
           <div className="mb5">
             <Card>
-              <div className=" ml4">
+              <div className=" ml4">EGWEGW
                 <div className="t-heading-5  mb4">
                   {messageTranslate('infoFormTitle')}
                 </div>
@@ -795,7 +825,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
               <p>{messageTranslate('loading')}</p>
             </div>
           ) : (
-            <div>
+            <div>Edit
               <div className="t-heading-5  mb4">
                 {messageTranslate('subTitleForm')}
               </div>
@@ -860,6 +890,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                               }
                             />
                           </div>
+
                         </div>
                       </>
                     ) : (
@@ -895,6 +926,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                             </div>
                           </>
                         ) : (
+                          <>
                           <Input
                             placeholder=""
                             value={slug}
@@ -910,6 +942,52 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                               })
                             }
                           />
+                          <Input
+                            placeholder=""
+                            value={imageUrl}
+                            label={messageTranslate('input5Form')}
+                            id="imageUrl"
+                            errorMessage={messageSlug}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                              changeStyle({
+                                id: e.target.id,
+                                value: e.target.value,
+                              })
+                            }
+                          />
+                          <Input
+                            placeholder=""
+                            value={actionLabel}
+                            label={messageTranslate('input6Form')}
+                            id="actionLabel"
+                            errorMessage={messageSlug}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                              changeStyle({
+                                id: e.target.id,
+                                value: e.target.value,
+                              })
+                            }
+                          />
+                          <Input
+                            placeholder=""
+                            value={actionUrl}
+                            label={messageTranslate('input7Form')}
+                            id="actionUrl"
+                            errorMessage={messageSlug}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                              changeStyle({
+                                id: e.target.id,
+                                value: e.target.value,
+                              })
+                            }
+                          />
+                          </>
                         )}
                       </>
                     )}

@@ -10,6 +10,7 @@ import { formatIOMessage } from 'vtex.native-types'
 import FirsLevelContainer from './Category/FirstLevelContainer'
 import SecondLevelContainer from './Category/SecondLevelContainer'
 import ThirdLevelContainer from './Category/ThirdLevelContainer'
+import InfoCardContainer from './Category/InfoCardContainer'
 import CategoryContainer from './Category/CategoryContainer'
 import GET_MENUS from './graphql/queries/getMenus.graphql'
 import { DataMenuProvider } from './shared'
@@ -33,6 +34,10 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/mega-menu.tabs.third',
   },
+  fourthLevelTab: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.tabs.fourth',
+  },
   titleApp: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.titleApp',
@@ -44,6 +49,8 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
   const { loading, data } = useQuery(GET_MENUS, {
     fetchPolicy: 'no-cache',
   })
+
+  console.log('data', data)
 
   const typeArraData: DataMenu[] = []
   const typeDataItems: TypeDataItems = { menus: [] }
@@ -160,6 +167,16 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
               }}
             >
               <ThirdLevelContainer />
+            </Tab>
+            <Tab
+              label={formatIOMessage({ id: messages.fourthLevelTab.id, intl })}
+              active={currentTab === 4}
+              onClick={() => {
+                setCurrentTab(4)
+                clearLocalStorage()
+              }}
+            >
+              <InfoCardContainer />
             </Tab>
           </Tabs>
         </Layout>

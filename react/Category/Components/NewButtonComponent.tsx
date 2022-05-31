@@ -33,7 +33,7 @@ const NewButtonComponent: FC<NewButtonComponentProps> = (props) => {
 
   const newItem = () => {
     navigate({
-      to: `/admin/app/mega-menu/form-menu/${encodeURIComponent(
+      to: `/admin/app/renwil-mega-menu/form-menu/${encodeURIComponent(
         JSON.stringify({
           level: obj.level,
           type: 'new',
