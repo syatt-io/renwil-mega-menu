@@ -8,6 +8,9 @@ query getMenu($id: ID!) {
     display
     enableSty
     order
+    imageUrl
+    actionLabel
+    actionUrl
     menu {
       id
       name

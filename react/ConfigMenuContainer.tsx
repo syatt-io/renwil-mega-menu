@@ -168,16 +168,6 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
             >
               <ThirdLevelContainer />
             </Tab>
-            <Tab
-              label={formatIOMessage({ id: messages.fourthLevelTab.id, intl })}
-              active={currentTab === 4}
-              onClick={() => {
-                setCurrentTab(4)
-                clearLocalStorage()
-              }}
-            >
-              <InfoCardContainer />
-            </Tab>
           </Tabs>
         </Layout>
       </DataMenuProvider>

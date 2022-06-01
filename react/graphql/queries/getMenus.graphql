@@ -10,6 +10,9 @@ query getMenus {
     order
     slugRoot
     slugRelative
+    imageUrl
+    actionLabel
+    actionUrl
     menu {
       id
       name
