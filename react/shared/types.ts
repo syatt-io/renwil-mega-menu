@@ -10,7 +10,7 @@ export type MenuItem = {
   order?: number
   slugRoot?: string
   slugRelative?: string
-  imageUrl?: string | unknown
+  imageUrl?: string
   actionLabel?: string
   actionUrl?: string
 }
@@ -27,7 +27,7 @@ export type MenuItemSave = {
   order?: number
   slugRoot?: string
   slugRelative?: string
-  imageUrl?: string | unknown
+  imageUrl?: string
   actionLabel?: string
   actionUrl?: string
 }

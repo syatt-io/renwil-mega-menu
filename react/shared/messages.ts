@@ -125,6 +125,10 @@ export const messagesForm = defineMessages({
     defaultMessage: '',
     id: 'admin/mega-menu.items.editItem',
   },
+  savedImage: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.savedImage',
+  },
 })
 
 export const messagesFirstLevel = defineMessages({

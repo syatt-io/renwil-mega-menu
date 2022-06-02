@@ -75,11 +75,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
   const [levelInfo, setLevelInfo] = useState(Object)
   const [messageName, setMessageName] = useState('')
   const [messageSlug, setMessageSlug] = useState('')
-  const [imageUrl, setImageUrl] = useState<string | unknown>('')
+  const [imageUrl, setImageUrl] = useState<string>('')
   const [actionLabel, setActionLabel] = useState('')
   const [actionUrl, setActionUrl] = useState('')
 
-  // console.log('imageUrl', imageUrl)
   const responseForm = JSON.parse(decodeURIComponent(props.params.menu))
 
   const [createNewMenu, { data: dataSave }] = useMutation(CREATE, {
@@ -96,8 +95,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     },
     fetchPolicy: 'no-cache',
   })
-
-  console.log('dataMenu', dataMenu)
 
   const btnSave = formatIOMessage({
     id: messages.btnSaveForm.id,
@@ -127,7 +124,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     displayMenu: boolean,
     enableStyMenu: boolean,
     orderMenu: number,
-    imageUrlMenu: string | unknown,
+    imageUrlMenu: string,
     actionLabelMenu: string,
     actionUrlMenu: string
   ) => {
@@ -255,9 +252,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           tempArrayTL[0].display,
           tempArrayTL[0].enableSty,
           tempArrayTL[0].order ?? 0,
-          tempArrayTL[0].imageUrl ?? 'ytyt',
-          tempArrayTL[0].actionLabel ?? 'ytty',
-          tempArrayTL[0].actionUrl ?? 'tyty'
+          tempArrayTL[0].imageUrl ?? '',
+          tempArrayTL[0].actionLabel ?? '',
+          tempArrayTL[0].actionUrl ?? ''
         )
 
         setLevelInfo({
@@ -317,11 +314,11 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     }
   }, [dataEdit])
 
-  const fileToBase64 = async (file) =>
-  new Promise((resolve, reject) => {
+  const fileToBase64 = async (file: any) =>
+  new Promise<string>((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsDataURL(file[0])
-    reader.onload = () => resolve(reader.result)
+    reader.onload = () => resolve(reader.result as string)
     reader.onerror = (e) => reject(e)
   })
 
@@ -363,9 +360,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         break
 
       case 'imageUrl':
-        const imageStr = await fileToBase64(e.value)
-        // console.log('e.value', e.value)
-        // console.log('imageStr', imageStr)
+        const imageStr: string = await fileToBase64(e.value)
         setImageUrl(imageStr)
         break
 
@@ -397,8 +392,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
   }
 
   const insertSubMenu = (mainMenuLevel: DataMenu, subMenuLevel: DataMenu[]) => {
-    console.log('mainMenuLevel', mainMenuLevel)
-    console.log('subMenuLevel', subMenuLevel)
     menuInput({
       variables: {
         editMenu: {
@@ -426,8 +419,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     let secondMenu = subMenu
 
     if (responseForm.level === 'firstLevel') {
-      console.log('firstLevel saveChanges')
-      console.log('first subMenu', subMenu)
       createNewMenu({
         variables: {
           menuInput: {
@@ -447,7 +438,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       })
       setMessage(messageTranslate('createItem'))
     } else if (responseForm.level === 'secondLevel') {
-      console.log('secondLevel')
       if (menu.menu) secondMenu = menu.menu
       const orderSubMenu = menu.menu ? menu.menu.length : 0
 
@@ -485,7 +475,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       )
       setMessage(messageTranslate('createItem'))
     } else {
-      console.log('thirdLevel', menu)
       const getOrderthr = menu.menu?.filter(
         (item: MenuItem) => item.id === responseForm.secondLevel
       )
@@ -520,8 +509,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           }
         })
       }
-
-      console.log('menu', menu)
 
       insertSubMenu(
         {
@@ -562,16 +549,13 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
   const editItem = () => {
     const menu = { ...mainMenu }
-    console.log('editItem', menu)
     let tempSecond: DataMenu[] = []
 
     if (responseForm.level === 'firstLevel') {
-      console.log('firstLevel')
       const menuLevelTwo = menu?.menu
       const menuLevelTwoUpdate: MenuItem[] = []
 
       if (menuLevelTwo?.length) {
-        console.log('menuLevelTwo?.length', menuLevelTwo)
         menuLevelTwo.forEach((item: MenuItem) => {
           if (item.slugRelative === slug) return
 
@@ -596,8 +580,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
             slugRoot: !item.slugRoot ? dataPath[1] : item.slugRoot,
           }
 
-          console.log('updateLevel', updateLevel)
-
           menuLevelTwoUpdate.push(updateLevel)
         })
       }
@@ -605,7 +587,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       let menuLevelThirdUpdate: MenuItem[] = []
 
       if (menuLevelTwoUpdate?.length) {
-        console.log('menuLevelTwoUpdate', menuLevelTwoUpdate)
         menuLevelTwoUpdate.forEach((itemSecond: MenuItem) => {
           menuLevelThirdUpdate = []
           if (itemSecond.menu?.length) {
@@ -642,8 +623,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           }
         })
       }
-      console.log('menuLevelTwoUpdate', menuLevelTwoUpdate)
-      console.log('menuLevelTwo', menuLevelTwo)
+
       insertSubMenu(
         { id: idMenu, name, icon, slug, styles, display, enableSty, order, imageUrl, actionLabel, actionUrl },
         menuLevelTwo?.length ? menuLevelTwo : menuLevelTwoUpdate
@@ -652,7 +632,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       setMessage(messageTranslate('editItem'))
     } else if (responseForm.level === 'secondLevel') {
 
-      console.log('secondLevel')
       const menuSecondSlug = `${slugRelative}/${slugRoot}`
 
       if (menu.menu) {
@@ -762,8 +741,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         }
       }
 
-      console.log('updateLevel 3', menu)
-
       insertSubMenu(
         {
           id: menu.id,
@@ -787,8 +764,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     }
   }
 
-  // console.log('responseForm.type', responseForm.type)
-  // console.log('responseForm.level', responseForm.level)
+  console.log('messageSlug', messageSlug)
 
   return (
     <div>
@@ -1010,13 +986,18 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                               })
                             }
                           />
-                          <Input
+                          {imageUrl && (
+                          <div>
+                            <p>{messageTranslate('savedImage')}</p>
+                            <img src={imageUrl} alt={`image-${name}`} className="w-20"/>
+                          </div>
+                          )}
+                          <p>{messageTranslate('input5Form')}</p>
+                          <input
                             placeholder=""
                             accept="image/*"
-                            // value={imageUrl}
-                            // label={messageTranslate('input5Form')}
+                            className="mb6"
                             id="imageUrl"
-                            // errorMessage={messageSlug}
                             type="file"
                             onChange={(
                               e: React.ChangeEvent<HTMLInputElement>
@@ -1027,12 +1008,14 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                               })
                             }
                           />
+                          <div className="mb3">
                           <Input
                             placeholder=""
                             value={actionLabel}
                             label={messageTranslate('input6Form')}
                             id="actionLabel"
                             errorMessage={messageSlug}
+                            className="mb5"
                             onChange={(
                               e: React.ChangeEvent<HTMLInputElement>
                             ) =>
@@ -1042,6 +1025,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                               })
                             }
                           />
+                          </div>
                           <Input
                             placeholder=""
                             value={actionUrl}
