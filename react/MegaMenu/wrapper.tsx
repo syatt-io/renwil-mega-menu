@@ -14,8 +14,6 @@ const Wrapper: StorefrontFunctionComponent<MegaMenuProps> = (props) => {
     fetchPolicy: 'no-cache',
   })
 
-  console.log('data', data)
-
   const { setDepartments, setConfig } = megaMenuState
 
   const { isMobile } = useDevice()

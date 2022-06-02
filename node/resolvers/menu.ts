@@ -59,17 +59,15 @@ const replaceStyles = (menuStyle: Menu[]) => {
 }
 
 export const menus = async (_: unknown, __: unknown, ctx: Context) => {
-  // console.log('ctx', ctx)
   const {
     clients: { vbase },
   } = ctx
-  // console.log('vbase', vbase)
 
   let menuItems: Menu[] = []
 
   try {
     menuItems = await vbase.getJSON<Menu[]>('menu', 'menuItems')
-    console.log('menus get', menuItems)
+
   } catch (err) {
     const errStr = err.toString()
 
@@ -104,11 +102,9 @@ export const createMenu = async (
 ) => {
   let menuItems: Menu[] = []
 
-    console.log('menuInput', menuInput)
-
   try {
     menuItems = await vbase.getJSON<Menu[]>('menu', 'menuItems')
-    console.log('menuItems', menuItems)
+
   } catch (err) {
     const errStr = err.toString()
 
@@ -143,7 +139,7 @@ export const editMenu = async (
   { menuInput }: Args,
   { clients: { vbase } }: Context
 ) => {
-  console.log('menuInput', menuInput)
+
   const menuEdit = await vbase.getJSON<Menu[]>('menu', 'menuItems')
 
   const newArray = orderArray([

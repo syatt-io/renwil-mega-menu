@@ -764,8 +764,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     }
   }
 
-  console.log('messageSlug', messageSlug)
-
   return (
     <div>
       {alert ? (

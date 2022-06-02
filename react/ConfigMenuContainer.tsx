@@ -49,8 +49,6 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
     fetchPolicy: 'no-cache',
   })
 
-  console.log('data', data)
-
   const typeArraData: DataMenu[] = []
   const typeDataItems: TypeDataItems = { menus: [] }
   const [alert, setAlert] = useState(false)

@@ -13,8 +13,6 @@ export const FirstLevelMenu = () => {
 
   const { data, loading } = useQuery(GET_MENUS)
 
-  console.log('data', data)
-
   const { menuState } = useContext(MenuContext)
   const { firstLevelIndex } = menuState
 

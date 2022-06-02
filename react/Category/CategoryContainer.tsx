@@ -53,8 +53,6 @@ const CategoryContainer: FC<InjectedIntlProps & PropsCategory> = (props) => {
     fetchPolicy: 'no-cache',
   })
 
-  console.log('dataSaved', dataSaved)
-
   if (props.dataMenu.menus) {
     if (!props.dataMenu.menus.length && showButtonDownload) {
       setShowButtonDownload(false)
