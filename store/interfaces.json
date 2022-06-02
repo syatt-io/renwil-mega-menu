@@ -18,5 +18,16 @@
   },
   "mega-menu-trigger-btn": {
     "component": "TriggerButton"
+  },
+  "main-menu": {
+    "component": "MainMenu",
+    "render": "client",
+    "allowed": "*"
+  },
+  "main-menu-mobile": {
+    "component": "MainMenuMobile",
+    "render": "client",
+    "allowed": "*",
+    "composition": "children"
   }
 }

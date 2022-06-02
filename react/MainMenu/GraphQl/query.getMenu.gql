@@ -1,0 +1,20 @@
+query getMenu {
+  menus {
+    id
+    name
+    slug
+    imageUrl
+    actionUrl
+    actionLabel
+    menu {
+      id
+      name
+      slug
+      menu {
+        id
+        name
+        slug
+      }
+    }
+  }
+}

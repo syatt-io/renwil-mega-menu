@@ -1,0 +1,82 @@
+.main-menu {
+  position: relative;
+}
+
+.main-menu__primary-nav {
+  position: relative;
+}
+
+.main-menu__mega-nav-wrapper {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  box-shadow: var(--theme-shadow);
+}
+
+.primary-nav__list-item:focus-within .main-menu__mega-nav-wrapper,
+.primary-nav__list-item:hover .main-menu__mega-nav-wrapper {
+  display: block;
+}
+
+/**
+ * 1. Padding required for full-width mega-menu to
+ *    align with site content width
+ */
+
+.main-menu__mega-nav-inner {
+  position: relative;
+  margin: 0 auto;
+  padding-right: 4.75rem; /* [1] */
+  padding-left: 4.75rem; /* [1] */
+  width: 100%;
+  max-width: 93rem;
+}
+
+.main-menu__mega-nav {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0rem;
+  text-align: left;
+}
+
+.main-menu__list {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+}
+
+.main-menu__list-item {
+}
+
+.main-menu__list-item-node {
+  display: inline-block;
+}
+
+.main-menu__list-item-link {
+  display: block;
+  text-decoration: none;
+}
+
+.main-menu__info-card {
+  width: 40%;
+  height: auto;
+  margin-left: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.main-menu__info-card-button {
+  text-decoration: none;
+  cursor: pointer;
+  padding: 1rem;
+  color: #fff;
+  background-color: #000;
+}
