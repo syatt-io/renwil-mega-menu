@@ -45,6 +45,10 @@ export const messagesForm = defineMessages({
     defaultMessage: '',
     id: 'admin/mega-menu.items.savedImage',
   },
+  imageUrl: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.imageUrl',
+  },
   imageText: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.imageText',

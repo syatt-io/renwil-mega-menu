@@ -13,6 +13,7 @@ type Menu {
   imageUrl: String
   actionLabel: String
   actionUrl: String
+  imageText: String
 }
 
 input MenuInput {
@@ -32,4 +33,5 @@ input MenuInput {
   imageUrl: String
   actionLabel: String
   actionUrl: String
+  imageText: String
 }
