@@ -17,33 +17,37 @@ export const messagesForm = defineMessages({
     defaultMessage: '',
     id: 'admin/mega-menu.items.infoForm',
   },
-  input1Form: {
+  name: {
     defaultMessage: '',
-    id: 'admin/mega-menu.items.input1Form',
+    id: 'admin/mega-menu.items.name',
   },
-  input2Form: {
+  slug: {
     defaultMessage: '',
-    id: 'admin/mega-menu.items.input2Form',
+    id: 'admin/mega-menu.items.slug',
   },
-  input3Form: {
+  icons: {
     defaultMessage: '',
-    id: 'admin/mega-menu.items.input3Form',
+    id: 'admin/mega-menu.items.icons',
   },
-  input4Form: {
+  styles: {
     defaultMessage: '',
-    id: 'admin/mega-menu.items.input4Form',
+    id: 'admin/mega-menu.items.styles',
   },
-  input5Form: {
+  actionText: {
     defaultMessage: '',
-    id: 'admin/mega-menu.items.input5Form',
+    id: 'admin/mega-menu.items.actionText',
   },
-  input6Form: {
+  actionUrl: {
     defaultMessage: '',
-    id: 'admin/mega-menu.items.input6Form',
+    id: 'admin/mega-menu.items.actionUrl',
   },
-  input7Form: {
+  savedImage: {
     defaultMessage: '',
-    id: 'admin/mega-menu.items.input7Form',
+    id: 'admin/mega-menu.items.savedImage',
+  },
+  imageText: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.imageText',
   },
   titleSubBlock: {
     defaultMessage: '',
@@ -124,11 +128,7 @@ export const messagesForm = defineMessages({
   editItem: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.editItem',
-  },
-  savedImage: {
-    defaultMessage: '',
-    id: 'admin/mega-menu.items.savedImage',
-  },
+  }
 })
 
 export const messagesFirstLevel = defineMessages({

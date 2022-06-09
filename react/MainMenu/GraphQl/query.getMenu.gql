@@ -6,6 +6,7 @@ query getMenu {
     imageUrl
     actionUrl
     actionLabel
+    imageText
     menu {
       id
       name

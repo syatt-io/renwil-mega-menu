@@ -13,6 +13,7 @@ export type MenuItem = {
   imageUrl?: string
   actionLabel?: string
   actionUrl?: string
+  imageText?: string
 }
 
 export type MenuItemSave = {
@@ -30,6 +31,7 @@ export type MenuItemSave = {
   imageUrl?: string
   actionLabel?: string
   actionUrl?: string
+  imageText?: string
 }
 
 export type MenusResponse = {

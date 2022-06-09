@@ -11,6 +11,7 @@ query getMenu($id: ID!) {
     imageUrl
     actionLabel
     actionUrl
+    imageText
     menu {
       id
       name

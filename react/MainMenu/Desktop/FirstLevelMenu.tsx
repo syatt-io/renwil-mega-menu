@@ -27,7 +27,7 @@ export const FirstLevelMenu = () => {
 
     return (
       <>
-        {data.menus?.map((firstLevelItem: any, index: number) => {
+        {data?.menus?.map((firstLevelItem: any, index: number) => {
           if (
             firstLevelItem.name === 'Supermercado' &&
             // eslint-disable-next-line eqeqeq
@@ -43,6 +43,7 @@ export const FirstLevelMenu = () => {
               imageUrl={firstLevelItem.imageUrl}
               actionUrl={firstLevelItem.actionUrl}
               actionLabel={firstLevelItem.actionLabel}
+              imageText={firstLevelItem.imageText}
             />
           }
 

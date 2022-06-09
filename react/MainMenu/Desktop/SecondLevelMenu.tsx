@@ -14,12 +14,14 @@ interface ISecondLevelMenu {
   imageUrl?: string
   actionUrl?: string
   actionLabel?: string
+  imageText?: string
 }
 
 interface InfoCardProp {
   imageUrl?: string
   actionUrl?: string
   actionLabel?: string
+  imageText?: string
 }
 
 type MenuItem = {
@@ -29,13 +31,12 @@ type MenuItem = {
   menu: string
 }
 
-const InfoCard = ({ imageUrl, actionUrl, actionLabel }: InfoCardProp) => {
+const InfoCard = ({ imageUrl, actionUrl, actionLabel, imageText }: InfoCardProp) => {
   return (
-    <div style={{
-      backgroundImage: `url(${imageUrl})`
-    }}
+    <div
     className={classNames(styles['main-menu__info-card'])}
       >
+      <img src={imageUrl} alt={imageText} />
       <Link to={actionUrl}
       className={classNames(
         'pa3 t-heading-4 c-on-base',
@@ -47,7 +48,7 @@ const InfoCard = ({ imageUrl, actionUrl, actionLabel }: InfoCardProp) => {
   )
 }
 
-export const SecondLevelMenu = ({ firstLevel = 0, imageUrl, actionUrl, actionLabel }: ISecondLevelMenu) => {
+export const SecondLevelMenu = ({ firstLevel = 0, imageUrl, actionUrl, actionLabel, imageText }: ISecondLevelMenu) => {
   const [secondLevelItems, setSecondLevelItems] = useState<MenuItem[]>([])
 
   const { data, loading } = useQuery(GET_MENUS)
@@ -144,7 +145,7 @@ export const SecondLevelMenu = ({ firstLevel = 0, imageUrl, actionUrl, actionLab
           <ul className={classNames('list ma0 pa0', styles['main-menu__list'])}>
             <ItemsSecondLevelMenu />
           </ul>
-          {imageUrl && <InfoCard imageUrl={imageUrl} actionLabel={actionLabel} actionUrl={actionUrl} />}
+          {imageUrl && <InfoCard imageUrl={imageUrl} actionLabel={actionLabel} actionUrl={actionUrl} imageText={imageText} />}
         </nav>
       </div>
     </div>
