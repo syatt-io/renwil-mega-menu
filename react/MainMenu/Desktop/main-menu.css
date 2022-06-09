@@ -19,7 +19,7 @@
 }
 
 .primary-nav__list-item:focus-within .main-menu__mega-nav-wrapper,
-.primary-nav__list-item .main-menu__mega-nav-wrapper {
+.primary-nav__list-item:hover .main-menu__mega-nav-wrapper {
   display: block;
 }
 
