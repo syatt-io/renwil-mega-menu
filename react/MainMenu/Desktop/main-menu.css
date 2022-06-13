@@ -39,7 +39,7 @@
 
 .main-menu__mega-nav {
   display: flex;
-  gap: 1;
+  gap: 16px;
   justify-content: space-between;
   padding: 2rem 0rem;
   text-align: left;
