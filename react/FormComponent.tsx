@@ -1030,7 +1030,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                           <div className="mb3">
                           <Input
                             placeholder=""
-                            value={imageText && actionLabel}
+                            value={imageText}
                             label={messageTranslate('imageText')}
                             id="imageText"
                             errorMessage={messageSlug}
