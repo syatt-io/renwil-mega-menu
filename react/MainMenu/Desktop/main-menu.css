@@ -1,0 +1,93 @@
+.main-menu {
+  position: relative;
+}
+
+.main-menu__primary-nav {
+  position: relative;
+}
+
+.main-menu__mega-nav-wrapper {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  box-shadow: var(--theme-shadow);
+}
+
+.primary-nav__list-item:focus-within .main-menu__mega-nav-wrapper,
+.primary-nav__list-item:hover .main-menu__mega-nav-wrapper {
+  display: block;
+}
+
+/**
+ * 1. Padding required for full-width mega-menu to
+ *    align with site content width
+ */
+
+.main-menu__mega-nav-inner {
+  position: relative;
+  margin: 0 auto;
+  padding-right: 4.75rem; /* [1] */
+  padding-left: 4.75rem; /* [1] */
+  width: 100%;
+  max-width: 93rem;
+}
+
+.main-menu__mega-nav {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 2rem 0rem;
+  text-align: left;
+}
+
+.main-menu__list {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+}
+
+.main-menu__list-item {
+}
+
+.main-menu__list-item-node {
+  display: inline-block;
+}
+
+.main-menu__list-item-link {
+  display: block;
+  text-decoration: none;
+}
+
+.main-menu__info-card {
+  position: relative;
+  width: 40%;
+  height: 100%;
+}
+
+.main-menu__info-card img {
+  width: 100%;
+  height: auto;
+}
+
+.main-menu__info-card-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  padding: 12px 24px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 1rem;
+  color: #fff;
+  background-color: #000;
+}
+
+.main-menu__info-card-button:hover {
+  background-color: black;
+}

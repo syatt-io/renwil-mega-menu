@@ -51,6 +51,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     menu: [],
     display: false,
     enableSty: false,
+    imageUrl: '',
+    actionLabel: '',
+    actionUrl: '',
+    imageText: ''
   }
 
   const { navigate } = useRuntime()
@@ -72,6 +76,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
   const [levelInfo, setLevelInfo] = useState(Object)
   const [messageName, setMessageName] = useState('')
   const [messageSlug, setMessageSlug] = useState('')
+  const [imageUrl, setImageUrl] = useState<string>('')
+  const [actionLabel, setActionLabel] = useState('')
+  const [actionUrl, setActionUrl] = useState('')
+  const [imageText, setImageText] = useState('')
 
   const responseForm = JSON.parse(decodeURIComponent(props.params.menu))
 
@@ -117,7 +125,11 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     subMenuData: DataMenu[],
     displayMenu: boolean,
     enableStyMenu: boolean,
-    orderMenu: number
+    orderMenu: number,
+    imageUrlMenu: string,
+    actionLabelMenu: string,
+    actionUrlMenu: string,
+    imageTextMenu: string
   ) => {
     setIdMenu(idenMenu)
     setName(nameMenu)
@@ -130,6 +142,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     setDisplay(displayMenu)
     setEnableSty(enableStyMenu)
     setOrder(orderMenu)
+    setImageUrl(imageUrlMenu)
+    setActionLabel(actionLabelMenu)
+    setActionUrl(actionUrlMenu)
+    setImageText(imageTextMenu)
   }
 
   useEffect(() => {
@@ -155,7 +171,11 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           dataMenu.menu.menu,
           dataMenu.menu.display,
           dataMenu.menu.enableSty,
-          dataMenu.menu.order
+          dataMenu.menu.order,
+          dataMenu.menu.imageUrl,
+          dataMenu.menu.actionLabel,
+          dataMenu.menu.actionUrl,
+          dataMenu.menu.imageText
         )
       } else if (responseForm.level === 'secondLevel') {
         setLevelInfo({ firstLevel: dataMenu.menu.name })
@@ -186,7 +206,11 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           [],
           submenu[0].display,
           submenu[0].enableSty,
-          submenu[0].order
+          submenu[0].order,
+          submenu[0].imageUrl,
+          submenu[0].actionLabel,
+          submenu[0].actionUrl,
+          submenu[0].imageText
         )
       } else {
         const tempArrayTL: DataMenu[] = []
@@ -233,7 +257,11 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           [],
           tempArrayTL[0].display,
           tempArrayTL[0].enableSty,
-          tempArrayTL[0].order ?? 0
+          tempArrayTL[0].order ?? 0,
+          tempArrayTL[0].imageUrl ?? '',
+          tempArrayTL[0].actionLabel ?? '',
+          tempArrayTL[0].actionUrl ?? '',
+          tempArrayTL[0].imageText ?? '',
         )
 
         setLevelInfo({
@@ -269,7 +297,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         : '3'
 
     navigate({
-      to: `/admin/app/mega-menu/${tab}`,
+      to: `/admin/app/renwil-mega-menu/${tab}`,
     })
   }
 
@@ -293,7 +321,15 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     }
   }, [dataEdit])
 
-  const changeStyle = (e: { id: string; value: string }) => {
+  const fileToBase64 = async (file: any) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file[0])
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = (e) => reject(e)
+  })
+
+  const changeStyle = async (e: any) => {
     setAlert(false)
     setMessageName('')
     setMessageSlug('')
@@ -330,6 +366,23 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         setSlugRelative(e.value)
         break
 
+      case 'imageUrl':
+        const imageStr: string = await fileToBase64(e.value)
+        setImageUrl(imageStr)
+        break
+
+      case 'actionLabel':
+        setActionLabel(e.value)
+        break
+
+      case 'actionUrl':
+        setActionUrl(e.value)
+        break
+
+      case 'imageText':
+        setImageText(e.value)
+        break
+
       default:
         break
     }
@@ -364,6 +417,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           order: mainMenuLevel.order,
           slugRoot: mainMenuLevel.slugRoot,
           slugRelative: mainMenuLevel.slugRelative,
+          imageUrl: mainMenuLevel.imageUrl,
+          actionLabel: mainMenuLevel.actionLabel,
+          actionUrl: mainMenuLevel.actionUrl,
+          imageText: mainMenuLevel.imageText
         },
       },
     })
@@ -385,6 +442,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
             menu: subMenu,
             display,
             enableSty,
+            imageUrl,
+            actionLabel,
+            actionUrl,
+            imageText
           },
         },
       })
@@ -404,6 +465,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         order: orderSubMenu + 1,
         slugRoot: slug,
         slugRelative: menu.slug,
+        imageUrl,
+        actionLabel,
+        actionUrl,
+        imageText
       })
 
       insertSubMenu(
@@ -416,6 +481,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: menu.display,
           enableSty: menu.enableSty,
           order: menu.order,
+          imageUrl: menu.imageUrl,
+          actionLabel: menu.actionLabel,
+          actionUrl: menu.actionUrl,
+          imageText: menu.imageText
         },
         secondMenu
       )
@@ -439,6 +508,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         order: valueOrder ? valueOrder.length + 1 : 1,
         slugRoot: slug,
         slugRelative: `${valueSlug}`,
+        imageUrl,
+        actionLabel,
+        actionUrl,
+        imageText
       }
 
       if (menu.menu) {
@@ -465,6 +538,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           order: menu.order,
           slugRoot: menu.slugRoot,
           slugRelative: menu.slugRelative,
+          imageUrl: menu.imageUrl,
+          actionLabel: menu.actionLabel,
+          actionUrl: menu.actionUrl,
+          imageText: menu.imageText
         },
         menu.menu ? menu.menu : []
       )
@@ -489,11 +566,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
   const editItem = () => {
     const menu = { ...mainMenu }
-
     let tempSecond: DataMenu[] = []
 
     if (responseForm.level === 'firstLevel') {
-      const menuLevelTwo = menu.menu
+      const menuLevelTwo = menu?.menu
       const menuLevelTwoUpdate: MenuItem[] = []
 
       if (menuLevelTwo?.length) {
@@ -566,12 +642,13 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       }
 
       insertSubMenu(
-        { id: idMenu, name, icon, slug, styles, display, enableSty, order },
-        menuLevelTwoUpdate
+        { id: idMenu, name, icon, slug, styles, display, enableSty, order, imageUrl, actionLabel, actionUrl },
+        menuLevelTwo?.length ? menuLevelTwo : menuLevelTwoUpdate
       )
 
       setMessage(messageTranslate('editItem'))
     } else if (responseForm.level === 'secondLevel') {
+
       const menuSecondSlug = `${slugRelative}/${slugRoot}`
 
       if (menu.menu) {
@@ -586,6 +663,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         tempSecond[0].display = display
         tempSecond[0].enableSty = enableSty
         tempSecond[0].order = order
+        tempSecond[0].imageUrl = imageUrl
+        tempSecond[0].actionLabel = actionLabel
+        tempSecond[0].actionUrl = actionUrl
+        tempSecond[0].imageText = imageText
       }
 
       let menuLevelThirdUpdate: MenuItem[] = []
@@ -638,6 +719,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: menu.display,
           enableSty: menu.enableSty,
           order: menu.order,
+          imageUrl: menu.imageUrl,
+          actionLabel: menu.actionLabel,
+          actionUrl: menu.actionUrl,
+          imageText: menu.imageText
         },
         menu.menu ? menu.menu : []
       )
@@ -669,6 +754,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           tempThird[0].display = display
           tempThird[0].enableSty = enableSty
           tempThird[0].order = order
+          tempThird[0].imageUrl = imageUrl
+          tempThird[0].actionLabel = actionLabel
+          tempThird[0].actionUrl = actionUrl
+          tempThird[0].imageText = imageText
         }
       }
 
@@ -684,6 +773,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: menu.display,
           enableSty: menu.enableSty,
           order: menu.order,
+          imageUrl: menu.imageUrl,
+          actionLabel: menu.actionLabel,
+          actionUrl: menu.actionUrl,
+          imageText: menu.imageText
         },
         menu.menu ? menu.menu : []
       )
@@ -805,7 +898,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                   <div className="mb5">
                     <Input
                       placeholder=""
-                      label={messageTranslate('input1Form')}
+                      label={messageTranslate('name')}
                       value={name}
                       id="name"
                       errorMessage={messageName}
@@ -819,7 +912,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                       <>
                         <div className="flex items-center">
                           <p className="mb2">
-                            {messageTranslate('input2Form')}
+                            {messageTranslate('slug')}
                           </p>
                           <Tooltip label={messageTranslate('tooltip3')}>
                             <div className="c-on-base pointer pt6 pl2">
@@ -860,6 +953,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                               }
                             />
                           </div>
+
                         </div>
                       </>
                     ) : (
@@ -870,7 +964,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                           responseForm.level === 'thirdLevel') ? (
                           <>
                             <p className="mb2">
-                              {messageTranslate('input2Form')}
+                              {messageTranslate('slug')}
                             </p>
                             <div className="flex items-center">
                               <label className="w-100 pa3 br2 bg-muted-3 hover-bg-muted-3 active-bg-muted-3 c-on-muted-3 hover-c-on-muted-3 active-c-on-muted-3 dib mr3">
@@ -895,10 +989,11 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                             </div>
                           </>
                         ) : (
+                          <>
                           <Input
                             placeholder=""
                             value={slug}
-                            label={messageTranslate('input2Form')}
+                            label={messageTranslate('slug')}
                             id="slug"
                             errorMessage={messageSlug}
                             onChange={(
@@ -910,6 +1005,80 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                               })
                             }
                           />
+                          {imageUrl && (
+                          <div>
+                            <p>{messageTranslate('savedImage')}</p>
+                            <img src={imageUrl} alt={`image-${name}`} className="w-20"/>
+                          </div>
+                          )}
+                          <p>{messageTranslate('imageUrl')}</p>
+                          <input
+                            placeholder=""
+                            accept="image/*"
+                            className="mb6"
+                            id="imageUrl"
+                            type="file"
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                              changeStyle({
+                                id: e.target.id,
+                                value: e.target.files
+                              })
+                            }
+                          />
+                          <div className="mb3">
+                          <Input
+                            placeholder=""
+                            value={imageText && actionLabel}
+                            label={messageTranslate('imageText')}
+                            id="imageText"
+                            errorMessage={messageSlug}
+                            className="mb5"
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                              changeStyle({
+                                id: e.target.id,
+                                value: e.target.value,
+                              })
+                            }
+                          />
+                          </div>
+                          <div className="mb3">
+                          <Input
+                            placeholder=""
+                            value={actionLabel}
+                            label={messageTranslate('actionText')}
+                            id="actionLabel"
+                            errorMessage={messageSlug}
+                            className="mb5"
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                              changeStyle({
+                                id: e.target.id,
+                                value: e.target.value,
+                              })
+                            }
+                          />
+                          </div>
+                          <Input
+                            placeholder=""
+                            value={actionUrl}
+                            label={messageTranslate('actionUrl')}
+                            id="actionUrl"
+                            errorMessage={messageSlug}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                              changeStyle({
+                                id: e.target.id,
+                                value: e.target.value,
+                              })
+                            }
+                          />
+                          </>
                         )}
                       </>
                     )}
@@ -918,7 +1087,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                 <div className="w-100 ml4 mr4">
                   <div className="mb5">
                     <div className="flex items-center">
-                      <p className="mb2">{messageTranslate('input3Form')}</p>
+                      <p className="mb2">{messageTranslate('icons')}</p>
                       <Tooltip label={messageTranslate('tooltip')}>
                         <div className="c-on-base pointer pt6 pl2">
                           <IconInfo />
@@ -943,7 +1112,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                     <Textarea
                       label={
                         <div className="flex items-center">
-                          <p>{messageTranslate('input4Form')}</p>
+                          <p>{messageTranslate('styles')}</p>
                           <Tooltip label={messageTranslate('tooltip2')}>
                             <div className="c-on-base pointer pt4 pl2">
                               <IconInfo />
@@ -983,7 +1152,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
               />
             </div>
             <div className="mt7 mb7">
-              <p>{messageTranslate('input4Form')}</p>
+              <p>{messageTranslate('styles')}</p>
               <Toggle
                 label={messageTranslate('subCheck2Block')}
                 checked={enableSty}

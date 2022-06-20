@@ -67,6 +67,7 @@ export const menus = async (_: unknown, __: unknown, ctx: Context) => {
 
   try {
     menuItems = await vbase.getJSON<Menu[]>('menu', 'menuItems')
+
   } catch (err) {
     const errStr = err.toString()
 
@@ -103,6 +104,7 @@ export const createMenu = async (
 
   try {
     menuItems = await vbase.getJSON<Menu[]>('menu', 'menuItems')
+
   } catch (err) {
     const errStr = err.toString()
 
@@ -137,6 +139,7 @@ export const editMenu = async (
   { menuInput }: Args,
   { clients: { vbase } }: Context
 ) => {
+
   const menuEdit = await vbase.getJSON<Menu[]>('menu', 'menuItems')
 
   const newArray = orderArray([

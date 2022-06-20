@@ -155,7 +155,7 @@ const TableComponent: FC<TableComponentProps> = (props) => {
     }
 
     navigate({
-      to: `/admin/app/mega-menu/form-menu/${encodeURIComponent(
+      to: `/admin/app/renwil-mega-menu/form-menu/${encodeURIComponent(
         JSON.stringify(bodyContext)
       )}`,
     })
@@ -402,16 +402,17 @@ const TableComponent: FC<TableComponentProps> = (props) => {
     properties: {
       name: {
         title: props.titleColumn.name,
-        width: 420,
+        width: 220,
       },
       slug: {
         title: props.titleColumn.slug,
-        width: 420,
+        width: 220,
       },
       icon: {
         title: props.titleColumn.icon,
-        width: 400,
+        width: 200,
       },
+
       actions: {
         title: props.titleColumn.action,
         width: 230,

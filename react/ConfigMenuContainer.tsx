@@ -33,6 +33,10 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/mega-menu.tabs.third',
   },
+  fourthLevelTab: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.tabs.fourth',
+  },
   titleApp: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.titleApp',
